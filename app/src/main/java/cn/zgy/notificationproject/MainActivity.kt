@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
         val remoteViews = RemoteViews(getPackageName(), cn.zgy.notification.R.layout.remoteview_main)
         val title = "Android Developer"
         val content = "developer.android.com"
-        remoteViews.setTextViewText(cn.zgy.notification.R.id.tv_title, title)
-        remoteViews.setTextViewText(cn.zgy.notification.R.id.tv_content, content)
+        remoteViews.setTextViewText(R.id.tv_title, title)
+        remoteViews.setTextViewText(R.id.tv_content, content)
+        remoteViews.setImageViewResource(R.id.iv_image, R.drawable.mv)
 
         NotificationUtils.init(this, "channelId2").remoteViewStyle()
             .smallIcon(R.mipmap.ic_launcher_round)
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 while (incr <= 100) {
                     downM.progress(100, incr, false)
                     downM.content("下载中  " + incr.toString() + "%")
-                    downM.manager.notify(NfStyle.DOWNLOAD.code, downM.builder.build())
+                    downM.build()
                     try {
                         Thread.sleep((1 * 1000).toLong())
                     } catch (e: Throwable) {
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 downM.content("下载完成")
                     // 移除进度条
                     .progress(0, 0, false)
-                downM.manager.notify(NfStyle.DOWNLOAD.code, downM.builder.build())
+                downM.build()
             }
         ).start()
     }
