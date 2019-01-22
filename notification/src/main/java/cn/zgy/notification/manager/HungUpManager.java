@@ -8,11 +8,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
 
 public class HungUpManager extends NfManager{
-    public HungUpManager(Context context, NotificationManager manager, NotificationCompat.Builder builder, int style) {
+    public HungUpManager(Context context, NotificationManager manager, Notification.Builder builder, int style) {
         super(context, manager, builder, style);
     }
 
@@ -44,7 +45,8 @@ public class HungUpManager extends NfManager{
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, 0);
         builder.setContentIntent(pendingIntent);
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+//        builder.setFullScreenIntent(pendingIntent, true);//横幅不会自动消失
+        builder.setTicker("").setPriority(Notification.PRIORITY_HIGH);//横幅可以自动消失
         return this;
     }
 
@@ -60,6 +62,11 @@ public class HungUpManager extends NfManager{
 
     public HungUpManager autoCancel(boolean auto){
         builder.setAutoCancel(auto);
+        return this;
+    }
+
+    public HungUpManager when(long time){
+        builder.setWhen(time);
         return this;
     }
 }

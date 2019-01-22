@@ -3,7 +3,7 @@ package cn.zgy.notificationproject
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RemoteViews
-import cn.zgy.notification.NotificationUtils
+import cn.zgy.notification.Notifications
 import cn.zgy.notification.manager.DownloadManager
 import cn.zgy.notification.model.NfStyle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         hello.setOnClickListener{
 
-//            hungUpDemo()
+            hungUpDemo()
 //            downDemo()
-            remoteDemo()
+//            remoteDemo()
 
         }
     }
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         remoteViews.setTextViewText(R.id.tv_content, content)
         remoteViews.setImageViewResource(R.id.iv_image, R.drawable.mv)
 
-        NotificationUtils.init(this, "channelId2").remoteViewStyle()
+        Notifications.init(this).remoteViewStyle()
             .smallIcon(R.mipmap.ic_launcher_round)
             .remoteView(remoteViews)
             .autoCancel(true)
@@ -42,17 +42,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun hungUpDemo() {
 
-        var list = ArrayList<String>()
-        list.add("hhhhhhhh")
-        list.add("gggg")
-        list.add("eeeeee")
-        list.add("hhhhwwwwwhhhh")
 
-        NotificationUtils.init(this, "channelId2").hungUpStyle()
+
+        Notifications.init(this).hungUpStyle()
             .title("hungup")
             .content("content")
             .smallIcon(R.mipmap.ic_launcher_round)
-            .largeIcon(R.mipmap.ic_launcher)
             .autoCancel(true)
             .defaultsAll()
             .intentUrl("http://www.baidu.com", 0)
@@ -60,12 +55,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downDemo() {
-        var downM: DownloadManager = NotificationUtils.init(this, "channelId2").downloadStyle(NfStyle.DOWNLOAD_2)
+        var downM: DownloadManager = Notifications.init(this).downloadStyle(NfStyle.DOWNLOAD_2)
         downM.title("微信2")
             .content("下载中")
             .smallIcon(R.mipmap.ic_launcher_round)
             .largeIcon(R.mipmap.ic_launcher)
             .autoCancel(true)
+
 
         Thread(
             Runnable {
@@ -86,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 downM.content("下载完成")
                     // 移除进度条
                     .progress(0, 0, false)
+                    .intentUrl("http://www.baidu.com", 0)
                 downM.build()
             }
         ).start()

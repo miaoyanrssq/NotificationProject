@@ -1,5 +1,6 @@
 package cn.zgy.notification.manager;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,11 +10,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
-import cn.zgy.notification.NotificationUtils;
 import cn.zgy.notification.model.NfStyle;
 
 public class BigTextManager extends NfManager {
-    public BigTextManager(Context context, NotificationManager manager, NotificationCompat.Builder builder, int style) {
+    public BigTextManager(Context context, NotificationManager manager, Notification.Builder builder, int style) {
         super(context, manager, builder, style);
     }
 
@@ -62,10 +62,14 @@ public class BigTextManager extends NfManager {
         builder.setAutoCancel(auto);
         return this;
     }
+    public BigTextManager when(long time){
+        builder.setWhen(time);
+        return this;
+    }
 
     public BigTextManager bigText(String bigText, String bigContentTitle){
         if(style == NfStyle.BIGTEXT.getCode()) {
-            android.support.v4.app.NotificationCompat.BigTextStyle style = new android.support.v4.app.NotificationCompat.BigTextStyle();
+            Notification.BigTextStyle style = new Notification.BigTextStyle();
             //bigText 给样式设置大文本内容
             style.bigText(bigText);
             //setBigContentTitle 给样式设置大文本的标题

@@ -1,5 +1,6 @@
 package cn.zgy.notification.manager;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,7 +12,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
 
 public class DownloadManager extends NfManager{
-    public DownloadManager(Context context, NotificationManager manager, NotificationCompat.Builder builder, int style) {
+    public DownloadManager(Context context, NotificationManager manager, Notification.Builder builder, int style) {
         super(context, manager, builder, style);
     }
 
@@ -46,15 +47,10 @@ public class DownloadManager extends NfManager{
         return this;
     }
 
-//    public DownloadManager defaults(int defaults){
-//        builder.setDefaults(defaults);
-//        return this;
-//    }
-//
-//    public DownloadManager defaultsAll(){
-//        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
-//        return this;
-//    }
+    public DownloadManager when(long time){
+        builder.setWhen(time);
+        return this;
+    }
 
     public DownloadManager autoCancel(boolean auto){
         builder.setAutoCancel(auto);

@@ -1,5 +1,6 @@
 package cn.zgy.notification.manager;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,11 +10,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
-import cn.zgy.notification.NotificationUtils;
 import cn.zgy.notification.model.NfStyle;
 
 public class BigPictureManager extends NfManager{
-    public BigPictureManager(Context context, NotificationManager manager, NotificationCompat.Builder builder, int style) {
+    public BigPictureManager(Context context, NotificationManager manager, Notification.Builder builder, int style) {
         super(context, manager, builder, style);
     }
 
@@ -63,9 +63,14 @@ public class BigPictureManager extends NfManager{
         return this;
     }
 
+    public BigPictureManager when(long time){
+        builder.setWhen(time);
+        return this;
+    }
+
     public BigPictureManager bigPicture(Bitmap bitmap, String bigContentTitle, String summaryText){
         if(style == NfStyle.BIGPICTURE.getCode()) {
-            android.support.v4.app.NotificationCompat.BigPictureStyle style = new android.support.v4.app.NotificationCompat.BigPictureStyle();
+            Notification.BigPictureStyle style = new Notification.BigPictureStyle();
             style.setBigContentTitle(bigContentTitle);
             style.setSummaryText(summaryText);
             style.bigPicture(bitmap);

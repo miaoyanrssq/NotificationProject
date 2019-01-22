@@ -1,5 +1,6 @@
 package cn.zgy.notification.manager;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,13 +10,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.NotificationCompat;
-import cn.zgy.notification.NotificationUtils;
 import cn.zgy.notification.model.NfStyle;
 
 import java.util.List;
 
 public class InBoxManager extends NfManager{
-    public InBoxManager(Context context, NotificationManager manager, NotificationCompat.Builder builder, int style) {
+    public InBoxManager(Context context, NotificationManager manager, Notification.Builder builder, int style) {
         super(context, manager, builder, style);
     }
     public InBoxManager title(String title){
@@ -64,9 +64,14 @@ public class InBoxManager extends NfManager{
         return this;
     }
 
+    public InBoxManager when(long time){
+        builder.setWhen(time);
+        return this;
+    }
+
     public InBoxManager inBox(String bigContentTitle, List<String> contents){
         if(style == NfStyle.INBOX.getCode()) {
-            android.support.v4.app.NotificationCompat.InboxStyle style = new android.support.v4.app.NotificationCompat.InboxStyle();
+            Notification.InboxStyle style = new Notification.InboxStyle();
             style.setBigContentTitle(bigContentTitle);
             for (String content : contents) {
                 style.addLine(content);
