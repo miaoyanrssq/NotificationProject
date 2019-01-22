@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 27
 
@@ -22,6 +22,15 @@ android {
         }
     }
 
+}
+
+publish {
+    userOrg = 'miaoyanrssq' // bintray 上注册的用户名
+    groupId = 'cn.zgy.notification' // 包名
+    artifactId = 'notification' // library名
+    publishVersion = '0.0.1' // 版本号
+    desc = 'Notification For Android'
+    website = 'https://github.com/miaoyanrssq/NotificationProject'
 }
 
 dependencies {
