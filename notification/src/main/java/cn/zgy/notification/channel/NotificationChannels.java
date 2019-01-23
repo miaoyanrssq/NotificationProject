@@ -6,16 +6,16 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import cn.zgy.notification.R;
+import cn.zgy.notification.module.Property;
 
 import java.util.Arrays;
-
+/**
+* 创建不同级别的Channel，api>= 26生效
+* @author zhengy
+* create at 2019/1/23 上午11:00
+**/
 public class NotificationChannels {
 
-    public final static String HIGH = "high";
-    public final static String IMPORTANCE = "importance";
-    public final static String DEFAULT = "default";
-    public final static String LOW = "low";
-    public final static String MEDIA = "media";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void createAllNotificationChannels(Context context){
@@ -27,7 +27,7 @@ public class NotificationChannels {
     public static void createAllNotificationChannels(Context context, NotificationManager manager) {
         if (manager.getNotificationChannels() != null && manager.getNotificationChannels().size() != 0) {
             NotificationChannel mediaChannel = new NotificationChannel(
-                    MEDIA,
+                    Property.IMPORTANCE.getName(),
                     context.getString(R.string.channel_media),
                     NotificationManager.IMPORTANCE_DEFAULT);
             mediaChannel.setSound(null, null);
@@ -35,19 +35,19 @@ public class NotificationChannels {
 
 
             manager.createNotificationChannels(Arrays.asList(
-                    new NotificationChannel(HIGH,
+                    new NotificationChannel(Property.HIGH.getName(),
                             context.getString(R.string.channel_high),
                             NotificationManager.IMPORTANCE_HIGH),
                     new NotificationChannel(
-                            IMPORTANCE,
+                            Property.IMPORTANCE.getName(),
                             context.getString(R.string.channel_importance),
                             NotificationManager.IMPORTANCE_DEFAULT),
                     new NotificationChannel(
-                            DEFAULT,
+                            Property.DEFAULT.getName(),
                             context.getString(R.string.channel_default),
                             NotificationManager.IMPORTANCE_LOW),
                     new NotificationChannel(
-                            LOW,
+                            Property.LOW.getName(),
                             context.getString(R.string.channel_low),
                             NotificationManager.IMPORTANCE_MIN),
                     //custom notification channel

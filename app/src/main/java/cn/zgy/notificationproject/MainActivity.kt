@@ -1,11 +1,12 @@
 package cn.zgy.notificationproject
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
 import cn.zgy.notification.Notifications
-import cn.zgy.notification.manager.DownloadManager
-import cn.zgy.notification.model.NfStyle
+import cn.zgy.notification.channel.NotificationChannels
+import cn.zgy.notification.manager.NfManager
+import cn.zgy.notification.module.Property
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,8 @@ class MainActivity : AppCompatActivity() {
         hello.setOnClickListener{
 
             hungUpDemo()
-//            downDemo()
-//            remoteDemo()
-
+            downDemo()
+            remoteDemo()
         }
     }
 
@@ -31,12 +31,10 @@ class MainActivity : AppCompatActivity() {
         remoteViews.setTextViewText(R.id.tv_content, content)
         remoteViews.setImageViewResource(R.id.iv_image, R.drawable.mv)
 
-        Notifications.init(this).remoteViewStyle()
+        Notifications.init(this, 1).remoteView(remoteViews)
             .smallIcon(R.mipmap.ic_launcher_round)
-            .remoteView(remoteViews)
             .autoCancel(true)
             .defaultsAll()
-            .intentUrl("http://www.baidu.com", 0)
             .build()
     }
 
@@ -44,18 +42,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        Notifications.init(this).hungUpStyle()
+        Notifications.init(this, 2).hungUp()
             .title("hungup")
             .content("content")
             .smallIcon(R.mipmap.ic_launcher_round)
             .autoCancel(true)
             .defaultsAll()
-            .intentUrl("http://www.baidu.com", 0)
             .build()
     }
 
     private fun downDemo() {
-        var downM: DownloadManager = Notifications.init(this).downloadStyle(NfStyle.DOWNLOAD_2)
+        var downM: NfManager = Notifications.init(this, 3).normal(Property.DEFAULT)
         downM.title("微信2")
             .content("下载中")
             .smallIcon(R.mipmap.ic_launcher_round)
@@ -82,7 +79,6 @@ class MainActivity : AppCompatActivity() {
                 downM.content("下载完成")
                     // 移除进度条
                     .progress(0, 0, false)
-                    .intentUrl("http://www.baidu.com", 0)
                 downM.build()
             }
         ).start()
