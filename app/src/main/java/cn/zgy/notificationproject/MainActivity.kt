@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
 import cn.zgy.notification.Notifications
-import cn.zgy.notification.channel.NotificationChannels
 import cn.zgy.notification.manager.NfManager
 import cn.zgy.notification.module.Property
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             .content("content")
             .smallIcon(R.mipmap.ic_launcher_round)
             .autoCancel(true)
-            .defaultsAll()
             .build()
     }
 

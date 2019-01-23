@@ -8,13 +8,11 @@ implementation 'cn.zgy.notification:notification:0.0.1'
 ```
 
 ```java
-Notifications.init(this).hungUpStyle()
+Notifications.init(this).hungUp()
             .title("hungup")
             .content("content")
             .smallIcon(R.mipmap.ic_launcher_round)
             .autoCancel(true)
-            .defaultsAll()
-            .intentUrl("http://www.baidu.com", 0)
             .build()
 ```
 
